@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Weights and model files -- staged locally, never committed
+pretrained/
+ckpt/
+*.safetensors
+*.pth
+*.pt
+*.pt2
+*.bin
+
+# Inputs and results
+samples/
+outputs/
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,65 @@
+TAVR
+Copyright © 2026 HeyGen
+
+This product includes software developed by HeyGen, licensed under the Apache
+License, Version 2.0. See the LICENSE file.
+
+
+THIRD-PARTY COMPONENTS
+======================
+
+No third-party source files are vendored in this repository. Every file under tavr/ and
+infer.py was written for this release, so the repository carries a single license rather
+than a per-directory mix. The components below are dependencies, not copies.
+
+
+1. Wan2.1-T2V-14B (Alibaba Cloud / Wan team)
+   Upstream: https://huggingface.co/Wan-AI/Wan2.1-T2V-14B
+   License:  Apache License 2.0
+   The TAVR transformer is built on the Wan2.1 architecture and its released VAE and umT5
+   text encoder are loaded at inference time. Their weights are distributed separately.
+
+2. Hugging Face Diffusers
+   License:  Apache License 2.0
+   Supplies the causal Wan VAE implementation that tavr/models/vae.py wraps, and the UniPC
+   sampler. The pin is exact -- see requirements.txt for why.
+
+3. Hugging Face Transformers
+   License:  Apache License 2.0
+   Runs the umT5 text encoder and the wav2vec 2.0 audio encoder.
+
+4. FlashAttention 3
+   Upstream: https://github.com/Dao-AILab/flash-attention
+   License:  BSD 3-Clause
+   The only attention backend. Built by the user; no wheel or source ships here.
+
+5. wav2vec2-xlsr-53-espeak-cv-ft (Meta AI)
+   Upstream: https://huggingface.co/facebook/wav2vec2-xlsr-53-espeak-cv-ft
+   License:  Apache License 2.0
+   Driving-audio features. Weights distributed separately.
+
+6. Ultralytics YOLO
+   Upstream: https://github.com/ultralytics/ultralytics
+   License:  AGPL-3.0
+   Person detection during preprocessing. The package is imported at runtime and its
+   yolo11x weights are loaded; neither is redistributed here. AGPL-3.0 is a copyleft
+   licence whose obligations extend to software that is combined with it and conveyed or
+   offered over a network. Review those terms against your own deployment, or substitute a
+   detector under different terms.
+
+7. DWPose (IDEA Research)
+   Upstream: https://github.com/IDEA-Research/DWPose
+   License:  Apache License 2.0
+   Whole-body pose used to derive face masks. The released dw-ll_ucoco_384 ONNX weights
+   are loaded at inference time and are not redistributed here.
+
+8. ONNX Runtime
+   License:  MIT
+   Runs the DWPose model.
+
+
+MODEL WEIGHTS
+=============
+
+The released TAVR transformer is trained on top of Wan2.1-T2V-14B (Apache License 2.0). The
+weights are distributed separately; see README.md.

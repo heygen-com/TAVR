@@ -1,0 +1,35 @@
+# Direct imports of this tree, pinned to the versions it was verified with,
+# plus the four packages those imports need at runtime. pip resolves the rest.
+#
+# flash_attn_3 is a compiled extension with no PyPI wheel: build it for your GPU
+# from https://github.com/Dao-AILab/flash-attention (the hopper/ directory).
+# FlashAttention 3 is the only attention backend -- there is no FA2 or SDPA fallback.
+#
+# opencv: install the non-headless build. ultralytics patches cv2.imshow at import,
+# which the headless build does not provide. Never install both: they share the same
+# cv2/ directory, so removing one guts the other.
+#
+# diffusers has to stay at 0.33.1 for two independent reasons. tavr/models/vae.py
+# imports private classes out of diffusers.models.autoencoders.autoencoder_kl_wan,
+# which carry no compatibility guarantee; and UniPCMultistepScheduler's flow-sigma
+# schedule was rewritten in 0.37.1, which moves the sampled result.
+
+torch==2.6.0+cu126
+transformers==4.57.0
+diffusers==0.33.1
+safetensors==0.4.5
+numpy==2.1.3
+pillow==11.3.0
+opencv-python==4.10.0.84
+imageio==2.37.0
+librosa==0.11.0
+pyloudnorm==0.1.1
+ultralytics==8.3.240
+onnxruntime-gpu==1.19.2
+flash_attn_3==3.0.0b1
+
+# not imported here, but required by the packages above on the paths this tree uses
+torchvision==0.21.0+cu126   # ultralytics
+imageio-ffmpeg==0.6.0       # imageio's mp4 writer backend
+scipy==1.15.2               # librosa
+soundfile==0.13.1           # librosa
