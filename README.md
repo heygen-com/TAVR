@@ -54,6 +54,7 @@ TAVR replaces single-image avatar references with short video clips, enabling cr
 </div>
 
 ## 🚩 News
+* 📊 Cross-scene benchmark data is released: [`benchmark_data.json`](https://huggingface.co/HeyGenAI/TAVR/blob/main/benchmark_data.json) on Hugging Face!
 * 🚀 Inference code is released!
 * 🎉 **TAVR** has been accepted by SIGGRAPH Asia 2026!
 ## ⚙️ Installation
@@ -100,6 +101,18 @@ PYTHONPATH=. python infer.py \
   --output-dir outputs
 ```
 The result lands in `outputs/example1/generated_target.mp4`. 
+## 📊 Benchmark
+The cross-scene benchmark consists of 158 reference/target video pairs filtered from [TalkVid](https://github.com/FreedomIntelligence/TalkVid). Its metadata is released as [`benchmark_data.json`](https://huggingface.co/HeyGenAI/TAVR/blob/main/benchmark_data.json) on Hugging Face:
+```bash
+hf download HeyGenAI/TAVR benchmark_data.json --local-dir ./benchmark
+```
+Each sample has:
+| field | content |
+|---|---|
+| `reference`, `target` | `video_id`, `video_url`, `start_time` / `end_time` (seconds), `start_frame` / `end_frame` at the source `fps`, `width`, `height` |
+| `target_caption` | scene caption used as the text prompt |
+
+The reference clip is the person's source video; the target clip provides the target still, the caption and the driving audio.
 ## 📝 Citation
 ```bibtex
 @inproceedings{guo2026generate,
