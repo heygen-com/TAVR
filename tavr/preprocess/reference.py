@@ -2,7 +2,6 @@ import os
 
 import numpy as np
 import torch
-import torch.nn.functional as F
 
 from tavr import contract
 from tavr.contract import (
@@ -174,6 +173,5 @@ def build_target(still: np.ndarray, vae, boxes: masks.PersonBoxes) -> Target:
     bucket = media.bucket_for(still)
     pixels = torch.from_numpy(media.fit_still(still, bucket).copy()).permute(2, 0, 1).float().div_(127.5).sub_(1.0)
     foreground = boxes.foreground(pixels)
-    background = 1.0 - F.interpolate(foreground[None], scale_factor=VAE_STRIDE[1], mode="nearest").bool().float()[0]
-    latents = vae.encode([(pixels * background).unsqueeze(1)])[0]
+    latents = vae.encode([pixels.unsqueeze(1)])[0]
     return Target(latents=latents, foreground=foreground)
