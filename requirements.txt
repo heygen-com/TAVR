@@ -14,7 +14,7 @@
 # which carry no compatibility guarantee; and UniPCMultistepScheduler's flow-sigma
 # schedule was rewritten in 0.37.1, which moves the sampled result.
 
-torch==2.6.0+cu126
+torch==2.13.0
 transformers==4.57.0
 diffusers==0.33.1
 safetensors==0.4.5
